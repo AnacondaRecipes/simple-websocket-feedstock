@@ -37,7 +37,14 @@ about:
   summary: Simple WebSocket server and client for Python
   license: MIT
   license_file: LICENSE
+  dev_url: https://github.com/miguelgrinberg/simple-websocket
+  doc_url: https://github.com/miguelgrinberg/simple-websocket/tree/main/docs
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/49522
+    reason: Dependency for chainlit
+  recipe-maintainers:
+    - ianaobi
   recipe-maintainers:
     - woutdenolf
