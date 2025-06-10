@@ -1,42 +1,51 @@
 {% set name = "simple-websocket" %}
-{% set version = "1.0.0" %}
+{% set version = "1.1.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/simple-websocket-{{ version }}.tar.gz
-  sha256: 17d2c72f4a2bd85174a97e3e4c88b01c40c3f81b7b648b0cc3ce1305968928c8
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: 7939234e7aa067c534abdab3a9ed933ec9ce4691b0713c78acb195560aa52ae4
 
 build:
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
+  skip: True  # [py<36]
 
 requirements:
   host:
-    - python >=3.7
-    - setuptools >=42
+    - python
+    - setuptools >=61.2
     - wheel
     - pip
   run:
-    - python >=3.7
+    - python
     - wsproto
 
 test:
+  source_files:
+    - tests
   imports:
     - simple_websocket
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
   requires:
     - pip
+    - pytest
 
 about:
   home: https://github.com/miguelgrinberg/simple-websocket
-  summary: Simple WebSocket server and client for Python
+  summary: Simple WebSocket server and client for Python.
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  description: Simple WebSocket server and client for Python.
+  doc_url: https://simple-websocket.readthedocs.io
+  dev_url: https://github.com/miguelgrinberg/simple-websocket
 
 extra:
   recipe-maintainers:
