@@ -1,0 +1,25 @@
+From c353bdd11eae5a17a28aab63787598b34a8f95c7 Mon Sep 17 00:00:00 2001
+From: Andrii Osipov <aosipov@anaconda.com>
+Date: Tue, 9 Jun 2026 06:26:25 -0700
+Subject: [PATCH] fix asyncio event loop for py314
+
+---
+ tests/helpers.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/helpers.py b/tests/helpers.py
+index a7c1a46..bea3b84 100644
+--- a/tests/helpers.py
++++ b/tests/helpers.py
+@@ -15,7 +15,7 @@ def AsyncMock(*args, **kwargs):
+ 
+ def _run(coro):
+     """Run the given coroutine."""
+-    return asyncio.get_event_loop().run_until_complete(coro)
++    return asyncio.run(coro(*args, **kwargs))
+ 
+ 
+ def make_sync(coro):
+-- 
+2.39.5 (Apple Git-154)
+
