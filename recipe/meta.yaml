@@ -9,10 +9,10 @@ source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
   sha256: 7939234e7aa067c534abdab3a9ed933ec9ce4691b0713c78acb195560aa52ae4
   patches:
-    - patches/0001-fix-asyncio-event-loop-for-py314.patch  # [py==314]
+    - patches/0001-fix-asyncio-event-loop-for-py314_315.patch  # [py>=314]
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   skip: true  # [py<36]
 
